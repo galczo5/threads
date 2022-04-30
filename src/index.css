@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+    --bg: #404040; /* slate 600 */
+    --fg: #737373;
+    --text: #e2e8f0;
+
+    --active: #a3a3a3;
+    --active-text: #404040;
+
+    --danger: #b91c1c;
+    --danger-text: #e5e7eb;
+}
+
+* {
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+}
+
+.app-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 10px;
+    z-index: 1000;
+    font-size: 22px;
+}
+
+.app-header__notes-name {
+    color: var(--fg);
+}
+
+.app-header__buttons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+
+input:focus {
+    background: var(--active);
+    color: var(--active-text);
+}
+
+textarea:focus {
+    background: var(--active);
+    color: var(--active-text);
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+button.danger {
+    background: var(--danger);
+    color: var(--danger-text);
+}
+
+button.active {
+    background: var(--active);
+    color: var(--active-text);
+}
+
+.app-header button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.app-header input {
+    height: 30px;
+    border-radius: 15px;
+}
+
+button,
+textarea,
+input {
+    transition: all .2s;
+
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--bg);
+    background: var(--fg);
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 16px;
+}
+
+.app-graph {
+    height: 100vh;
+    width: 100vw;
+}
+
+.app-footer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100%;
+
+    position: fixed;
+    left: 0;
+    bottom: 0;
+
+    overflow: visible;
+    padding: 10px 0;
+}
+
+.app-footer .app-footer__calendar {
+    width: 800px;
+    height: 120px;
+}
+
+.app-editor {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    width: 50vw;
+    height: 100vh;
+
+    background: var(--bg);
+    box-shadow: 0 0 50px 20px rgba(0, 0, 0, .1);
+    z-index: 2000;
+    padding: 10px;
+}
+
+.app-editor__buttons {
+    display: flex;
+    position: relative;
+    gap: 5px;
+}
+
+.app-editor__close-button {
+    position: absolute;
+    left: -50px;
+    top: -45px;
+    width: 30px;
+    height: 30px;
+    background: var(--active);
+    border-radius: 50%;
+}
+
+.app-editor__note-title {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.app-editor__note-content {
+    padding: 10px;
+    resize: vertical;
+}
