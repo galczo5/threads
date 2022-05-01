@@ -99,10 +99,11 @@ export function Editor() {
                 }
             </div>
 
-            { selectedNode.id &&
+            { selectedNode.id ?
                 <button className='danger'>
                     <i className="fa-solid fa-trash"/>
                 </button>
+                : <></>
             }
 
         </div>
