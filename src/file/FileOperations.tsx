@@ -1,7 +1,7 @@
 import {useRecoilState, useRecoilValue} from "recoil";
 import {fileDataSelector} from "../state/FileDataSelector";
 import {Api} from "../Api";
-import {nodesAtom} from "../state/NodesAtom";
+import {noteNodesAtom} from "../state/NoteNodesAtom";
 import {edgesAtom} from "../state/EdgesAtom";
 import {useEffect} from "react";
 import {filePathAtom} from "../state/FilePathAtom";
@@ -20,7 +20,7 @@ export function FileOperations() {
         [fileJson, filePath]
     );
 
-    const [nodes, setNodes] = useRecoilState(nodesAtom);
+    const [nodes, setNodes] = useRecoilState(noteNodesAtom);
     const [edges, setEdges] = useRecoilState(edgesAtom);
 
     Api.onNoteOpen((path, file) => {

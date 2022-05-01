@@ -2,11 +2,12 @@ import {useEffect, useRef} from "react";
 import * as vis from "vis";
 import {useRecoilState} from "recoil";
 import {editorVisibilityAtom} from "../state/EditorVisibilityAtom";
-import {nodesAtom} from "../state/NodesAtom";
-import {GraphNode} from "../state/Node";
+import {noteNodesAtom} from "../state/NoteNodesAtom";
+import {GraphNoteNode} from "../state/NoteNode";
 import {selectedNodeAtom} from "../state/SelectedNodeAtom";
 import {edgesAtom} from "../state/EdgesAtom";
 import {GraphEdge} from "../state/Edge";
+import {Colors} from "../Colors";
 
 export function Graph() {
 
@@ -14,15 +15,16 @@ export function Graph() {
     const [editorVisible, setEditorVisible] = useRecoilState(editorVisibilityAtom);
     const [selectedNode, setSelectedNode] = useRecoilState(selectedNodeAtom);
 
-    const [nodes] = useRecoilState(nodesAtom);
+    const [nodes] = useRecoilState(noteNodesAtom);
     const [edges] = useRecoilState(edgesAtom);
 
+    const colors = Colors.get();
     const options = {
         nodes: {
             shape: "dot",
             borderWidth: 0,
-            font: {color: '#e2e8f0'},
-            color: '#a3a3a3'
+            font: {color: colors.getTextColor()},
+            color: colors.getAccentColor()
         },
         edges: {
             arrows: {
@@ -32,7 +34,7 @@ export function Graph() {
     };
 
     let network: vis.Network | null = null;
-    let nodesDataSet: vis.DataSet<GraphNode> = new vis.DataSet<GraphNode>();
+    let nodesDataSet: vis.DataSet<GraphNoteNode> = new vis.DataSet<GraphNoteNode>();
     let edgesDataSet: vis.DataSet<GraphEdge> = new vis.DataSet<GraphEdge>();
 
     useEffect(

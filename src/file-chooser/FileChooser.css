@@ -15,7 +15,7 @@
     justify-content: center;
     text-transform: uppercase;
     font-weight: bold;
-    border: 2px dashed var(--bg);
+    border: 2px dashed var(--background);
 }
 
 .app-file-chooser__list {
@@ -29,8 +29,8 @@
 }
 
 .app-file-chooser__file {
-    background: var(--fg);
-    color: var(--bg);
+    background: var(--foreground);
+    color: var(--background);
     padding: 10px 15px;
     border-radius: 4px;
 
@@ -45,8 +45,8 @@
 }
 
 .app-file-chooser__file:hover {
-    background: var(--active);
-    color: var(--active-text);
+    background: var(--accent);
+    color: var(--accent-text);
 }
 
 .app-file-chooser__brand {

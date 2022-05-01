@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 :root {
-    --bg: #404040; /* slate 600 */
-    --fg: #737373;
+    --background: #0f172a; /* slate 600 */
+    --foreground: #475569;
     --text: #e2e8f0;
 
-    --active: #a3a3a3;
-    --active-text: #404040;
+    --accent: #0ea5e9;
+    --accent-text: #e2e8f0;
 
     --danger: #b91c1c;
     --danger-text: #e5e7eb;
@@ -24,7 +24,7 @@ html {
 }
 
 body {
-    background: var(--bg);
+    background: var(--background);
     color: var(--text);
 }
 
@@ -32,9 +32,14 @@ a {
     text-decoration: none;
 }
 
+::placeholder {
+    color: var(--text);
+}
+
 .app-header {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
     gap: 10px;
     position: fixed;
     left: 0;
@@ -52,7 +57,7 @@ a {
 }
 
 .app-header__notes-name {
-    color: var(--fg);
+    color: var(--foreground);
 }
 
 .app-header__buttons {
@@ -71,13 +76,13 @@ a {
 }
 
 input:focus {
-    background: var(--active);
-    color: var(--active-text);
+    background: var(--accent);
+    color: var(--accent-text);
 }
 
 textarea:focus {
-    background: var(--active);
-    color: var(--active-text);
+    background: var(--accent);
+    color: var(--accent-text);
 }
 
 button {
@@ -93,8 +98,8 @@ button.danger {
 }
 
 button.active {
-    background: var(--active);
-    color: var(--active-text);
+    background: var(--accent);
+    color: var(--accent-text);
 }
 
 .app-header button {
@@ -110,14 +115,15 @@ button.active {
 
 button,
 textarea,
-input {
+input,
+select {
     transition: all .2s;
 
     border: none;
     outline: none;
     background: transparent;
-    color: var(--bg);
-    background: var(--fg);
+    color: var(--background);
+    background: var(--foreground);
     border-radius: 4px;
     padding: 5px 10px;
     font-size: 16px;
@@ -126,8 +132,8 @@ input {
 button:hover,
 textarea:hover,
 input:hover {
-    background: var(--active);
-    color: var(--active-text);
+    background: var(--accent);
+    color: var(--accent-text);
 }
 
 .app-graph {
@@ -165,7 +171,7 @@ input:hover {
     width: 50vw;
     height: 100vh;
 
-    background: var(--bg);
+    background: var(--background);
     box-shadow: 0 0 50px 20px rgba(0, 0, 0, .1);
     z-index: 2000;
     padding: 10px;
@@ -174,6 +180,11 @@ input:hover {
 .app-editor__buttons {
     display: flex;
     position: relative;
+    justify-content: space-between;
+}
+
+.app-editor__buttons-left {
+    display: flex;
     gap: 5px;
 }
 
@@ -183,7 +194,7 @@ input:hover {
     top: -45px;
     width: 30px;
     height: 30px;
-    background: var(--active);
+    background: var(--accent);
     border-radius: 50%;
 }
 
@@ -195,4 +206,8 @@ input:hover {
 .app-editor__note-content {
     padding: 10px;
     resize: vertical;
+}
+
+.separator-margin {
+    margin-bottom: 10px;
 }

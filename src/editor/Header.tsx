@@ -1,7 +1,7 @@
 import {useRecoilState} from "recoil";
 import {calendarVisibilityAtom} from "../state/CalendarVisibilityAtom";
 import {selectedNodeAtom} from "../state/SelectedNodeAtom";
-import {Node} from "../state/Node";
+import {NoteNode} from "../state/NoteNode";
 import {editorVisibilityAtom} from "../state/EditorVisibilityAtom";
 import {Logo} from "../logo/Logo";
 import {useRef} from "react";
@@ -18,17 +18,14 @@ export function Header() {
     const inputRef = useRef<HTMLInputElement>(null);
 
     const openEditor = () => {
-        setSelectedNode(new Node(0, '', '', new Date().toISOString()));
+        const now = new Date().toISOString();
+
+        setSelectedNode(new NoteNode(0, '', '', [now]));
         setCalendarVisibility(true);
     };
 
     return (
         <div className='app-header'>
-            <div className='app-header__notes-name'>
-                <strong>
-                    {filePath}
-                </strong>
-            </div>
             <div className='app-header__buttons'>
                 <Link to={'/'}>
                     <button>
@@ -53,8 +50,10 @@ export function Header() {
                 {/*    <i className="fa-solid fa-list-check"/>*/}
                 {/*</button>*/}
             </div>
-            <div className='app-header__logo'>
-                <Logo size={100}/>
+            <div className='app-header__notes-name'>
+                <strong>
+                    {filePath}
+                </strong>
             </div>
         </div>
     );

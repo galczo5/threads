@@ -1,14 +1,14 @@
-import {Node, NodePlain} from "../state/Node";
+import {NoteNode, NoteNodePlain} from "../state/NoteNode";
 import {Edge, EdgePlain} from "../state/Edge";
 
 export type FileJson = {
-    nodes: Array<NodePlain>,
+    nodes: Array<NoteNodePlain>,
     edges: Array<EdgePlain>
 };
 
 export class File {
     constructor(
-        public readonly nodes: Array<Node>,
+        public readonly nodes: Array<NoteNode>,
         public readonly edges: Array<Edge>
     ) {
     }

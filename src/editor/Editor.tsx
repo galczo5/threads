@@ -1,9 +1,9 @@
 import ReactMarkdown from "react-markdown";
 import {useRecoilState} from "recoil";
 import {editorVisibilityAtom} from "../state/EditorVisibilityAtom";
-import {nodesAtom} from "../state/NodesAtom";
+import {noteNodesAtom} from "../state/NoteNodesAtom";
 import {useEffect, useState} from "react";
-import {Node} from "../state/Node";
+import {NoteNode} from "../state/NoteNode";
 import {selectedNodeAtom} from "../state/SelectedNodeAtom";
 import {edgesAtom} from "../state/EdgesAtom";
 import {Edge} from "../state/Edge";
@@ -14,9 +14,10 @@ export function Editor() {
     const [content, setContent] = useState('');
     const [parent, setParent] = useState(0);
     const [editMode, setEditMode] = useState(false);
+    const [addParentMode, setAddParentMode] = useState(false);
 
     const [editorVisible, setEditorVisible] = useRecoilState(editorVisibilityAtom);
-    const [nodes, setNodes] = useRecoilState(nodesAtom);
+    const [nodes, setNodes] = useRecoilState(noteNodesAtom);
     const [edges, setEdges] = useRecoilState(edgesAtom);
     const [selectedNode] = useRecoilState(selectedNodeAtom);
 
@@ -31,14 +32,18 @@ export function Editor() {
 
     const addNote = () => {
         const newNodeId = selectedNode.id ? selectedNode.id : nodes.length + 1;
+        const now = new Date().toISOString();
         setNodes([
             ...nodes.filter(n => n.id !== newNodeId),
-            new Node(newNodeId, title, content, new Date().toISOString())
+            new NoteNode(newNodeId, title, content, [now])
         ]);
+
+        setEditorVisible(false);
     };
 
     const addEdge = () => {
-        setEdges([...edges, new Edge(parent, selectedNode.id)])
+        setEdges([...edges, new Edge(parent, selectedNode.id)]);
+        setAddParentMode(false);
     };
 
     const template = <div className='app-editor'>
@@ -47,47 +52,59 @@ export function Editor() {
                value={title}
                onChange={e => setTitle(e.target.value)}/>
         <div className='app-editor__buttons'>
-            <button onClick={() => setEditorVisible(false)}
-                    className='app-editor__close-button'>
-                <i className="fa-solid fa-arrow-right"/>
-            </button>
-
-            <button className='active'
-                    onClick={() => addNote()}>
-                <i className='fa-solid fa-save'/>
-                <span>save</span>
-            </button>
-
-            {selectedNode.id ?
-                <button onClick={() => setEditMode(!editMode)}>
-                    <i className='fa-solid fa-edit'/>
+            <div className='app-editor__buttons-left'>
+                <button onClick={() => setEditorVisible(false)}
+                        className='app-editor__close-button'>
+                    <i className="fa-solid fa-arrow-right"/>
                 </button>
-                : <></>
+
+                <button className='active'
+                        onClick={() => addNote()}>
+                    <i className='fa-solid fa-save'/>
+                    <span>save</span>
+                </button>
+
+                {selectedNode.id ?
+                    <button onClick={() => setEditMode(!editMode)}>
+                        <i className='fa-solid fa-edit'/>
+                    </button>
+                    : <></>
+                }
+
+                {selectedNode.id ?
+                    <>
+                        {!addParentMode &&
+                            <button onClick={() => setAddParentMode(true)}>
+                                <i className='fa-solid fa-plus'/>
+                                <span>parent</span>
+                            </button>
+                        }
+                        {addParentMode &&
+                            <>
+                                <select onChange={e => setParent(Number(e.target.value))}
+                                        style={{width: '100px'}}>
+                                    {
+                                        nodes.filter(n => n.id !== selectedNode.id).map(n =>
+                                            <option key={n.id} value={n.id}>{n.title}</option>
+                                        )
+                                    }
+                                </select>
+                                <button onClick={() => addEdge()}>
+                                    <i className='fa-solid fa-check'/>
+                                </button>
+                            </>
+                        }
+                    </>
+                    : <></>
+                }
+            </div>
+
+            { selectedNode.id &&
+                <button className='danger'>
+                    <i className="fa-solid fa-trash"/>
+                </button>
             }
 
-            {(selectedNode && selectedNode.id) ?
-                <>
-                    <button className='danger'>
-                        <i className="fa-solid fa-trash"/>
-                    </button>
-                    <button>
-                        <i className='fa-solid fa-plus'/>
-                        <span>parent</span>
-                    </button>
-                    <select onChange={e => setParent(Number(e.target.value))}
-                            style={{width: '100px'}}>
-                        {
-                            nodes.filter(n => n.id !== selectedNode.id).map(n =>
-                                <option key={n.id} value={n.id}>{n.title}</option>
-                            )
-                        }
-                    </select>
-                    <button onClick={() => addEdge()}>
-                        <i className='fa-solid fa-check'/>
-                    </button>
-                </>
-                : <></>
-            }
         </div>
 
         {(editMode || !selectedNode.id) ?

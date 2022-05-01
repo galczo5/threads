@@ -26,7 +26,7 @@ export function FileChooser() {
                 </div>
 
                 <div style={{display: 'flex', flexWrap: 'wrap', gap: '10px', maxHeight: '50vh', overflow: 'auto', padding: '20px'}}>
-                    <div style={{display: 'flex', gap: '5px', width: '100%'}}>
+                    <div className='separator-margin' style={{display: 'flex', gap: '5px', width: '100%'}}>
                         <input style={{flexGrow: '1'}}
                                type="text"
                                placeholder='search...'
@@ -41,7 +41,7 @@ export function FileChooser() {
                         <i className="fa-solid fa-plus app-file-chooser__file-icon"/>
                         Create file
                     </div>
-                    <div className='app-file-chooser__file' onClick={() => openFile()}>
+                    <div className='app-file-chooser__file separator-margin' onClick={() => openFile()}>
                         <i className="fa-solid fa-file-download app-file-chooser__file-icon"/>
                         Open new file
                     </div>

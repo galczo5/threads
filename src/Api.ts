@@ -1,6 +1,6 @@
 import {IpcRendererEvent} from 'electron'
 import {File, FileJson} from './file/File'
-import {Node} from "./state/Node";
+import {NoteNode} from "./state/NoteNode";
 import {Edge} from "./state/Edge";
 
 type ElectronApi = {
@@ -32,7 +32,7 @@ export class Api {
         this.getApi().listen('open', (e, eventData: { filePath: string, data: string }) => {
             try {
                 const parsed: Partial<FileJson> = JSON.parse(eventData.data);
-                const nodes = parsed.nodes ? parsed.nodes.map(n => Node.fromPlain(n)) : [];
+                const nodes = parsed.nodes ? parsed.nodes.map(n => NoteNode.fromPlain(n)) : [];
                 const edges = parsed.edges ? parsed.edges.map(n => Edge.fromPlain(n)) : [];
 
                 listener(eventData.filePath, new File(nodes, edges))

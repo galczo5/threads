@@ -1,12 +1,12 @@
 import { selector } from "recoil";
-import {nodesAtom} from "./NodesAtom";
+import {noteNodesAtom} from "./NoteNodesAtom";
 import {edgesAtom} from "./EdgesAtom";
 import {File} from "../file/File";
 
 export const fileDataSelector = selector({
     key: 'file/data',
     get: ({get}) => {
-        const nodes = get(nodesAtom);
+        const nodes = get(noteNodesAtom);
         const edges = get(edgesAtom);
 
         const file = new File(nodes, edges);
