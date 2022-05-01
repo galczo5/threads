@@ -1,0 +1,60 @@
+.app-file-chooser {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.app-file-chooser__file-open {
+    margin-top: 10px;
+    height: 150px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 2px dashed var(--bg);
+}
+
+.app-file-chooser__list {
+    width: 800px;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.app-file-chooser__file {
+    background: var(--fg);
+    color: var(--bg);
+    padding: 10px 15px;
+    border-radius: 4px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 150px;
+    height: 150px;
+}
+.app-file-chooser__file--active {
+    background: var(--active);
+    color: var(--active-text);
+}
+
+.app-file-chooser__brand {
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.app-file-chooser__brand h1,
+.app-file-chooser__brand h3 {
+    margin-bottom: 0;
+    margin-top: 0;
+}
