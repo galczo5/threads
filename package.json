@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --base=./",
     "watch": "vite build --watch --base=./",
     "preview": "vite preview",
-    "app": "yarn electron ./main.js"
+    "app": "yarn electron ./main.js",
+    "start": "yarn run build && yarn run app"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.1.1",
