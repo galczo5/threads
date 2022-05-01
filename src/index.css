@@ -28,6 +28,10 @@ body {
     color: var(--text);
 }
 
+a {
+    text-decoration: none;
+}
+
 .app-header {
     display: flex;
     flex-direction: column;
@@ -40,6 +44,13 @@ body {
     font-size: 22px;
 }
 
+.app-header__logo {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    opacity: .2;
+}
+
 .app-header__notes-name {
     color: var(--fg);
 }
@@ -50,6 +61,14 @@ body {
     gap: 5px;
 }
 
+.app-header__search {
+    width: 200px;
+    transition: all .2s;
+}
+
+.app-header__search:focus {
+    width: 350px;
+}
 
 input:focus {
     background: var(--active);
@@ -102,6 +121,13 @@ input {
     border-radius: 4px;
     padding: 5px 10px;
     font-size: 16px;
+}
+
+button:hover,
+textarea:hover,
+input:hover {
+    background: var(--active);
+    color: var(--active-text);
 }
 
 .app-graph {

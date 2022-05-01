@@ -20,11 +20,12 @@
 
 .app-file-chooser__list {
     width: 800px;
-    height: 80vh;
+    max-height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    padding: 0 10px;
 }
 
 .app-file-chooser__file {
@@ -34,14 +35,16 @@
     border-radius: 4px;
 
     display: flex;
-    flex-direction: column;
+    width: 100%;
     align-items: center;
-    justify-content: center;
     gap: 10px;
-    width: 150px;
-    height: 150px;
+
+    transition: all .2s;
+    text-wrap: normal;
+    white-space: break-spaces;
 }
-.app-file-chooser__file--active {
+
+.app-file-chooser__file:hover {
     background: var(--active);
     color: var(--active-text);
 }

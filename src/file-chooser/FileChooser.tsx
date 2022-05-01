@@ -1,8 +1,19 @@
 import './FileChooser.css';
 import {Logo} from "../logo/Logo";
-import {Link} from "react-router-dom";
+import {Api} from "../Api";
+import {useState} from "react";
 
 export function FileChooser() {
+
+    const MAX_FILES_ON_LIST = 5;
+
+    const createFile = () => Api.createFile();
+    const openFile = () => Api.open();
+    const loadFile = (filePath: string) => Api.load(filePath);
+    const [filer, setFilter] = useState('');
+
+    const recentlyOpenedFiles: Array<string> = JSON.parse(localStorage.getItem('files') || '[]');
+
     return (
         <div className='app-file-chooser'>
             <div className='app-file-chooser__list'>
@@ -14,29 +25,37 @@ export function FileChooser() {
                     </div>
                 </div>
 
-                <div style={{display: 'flex', gap: '5px'}}>
-                    <input style={{width: '300px'}} type="text" placeholder='search...'/>
-                    <button>
-                        <i className="fa-solid fa-search"></i>
-                    </button>
-                </div>
+                <div style={{display: 'flex', flexWrap: 'wrap', gap: '10px', maxHeight: '50vh', overflow: 'auto', padding: '20px'}}>
+                    <div style={{display: 'flex', gap: '5px', width: '100%'}}>
+                        <input style={{flexGrow: '1'}}
+                               type="text"
+                               placeholder='search...'
+                               value={filer}
+                               onChange={event => setFilter(event.target.value)}/>
+                        <button>
+                            <i className="fa-solid fa-search app-file-chooser__file-icon"/>
+                        </button>
+                    </div>
 
-                <div style={{display: 'flex', flexWrap: 'wrap', gap: '10px'}}>
-                    <div className='app-file-chooser__file app-file-chooser__file--active'>
-                        <i className="fa-solid fa-3x fa-file-download app-file-chooser__file-icon"></i>
+                    <div className='app-file-chooser__file' onClick={() => createFile()}>
+                        <i className="fa-solid fa-plus app-file-chooser__file-icon"/>
+                        Create file
+                    </div>
+                    <div className='app-file-chooser__file' onClick={() => openFile()}>
+                        <i className="fa-solid fa-file-download app-file-chooser__file-icon"/>
                         Open new file
                     </div>
                     {
-                        new Array(5).fill(0).map((x, i) => {
-                            return (
-                                <Link key={i} to={'/note/asd'}>
-                                    <div className='app-file-chooser__file'>
-                                        <i className="fa-solid fa-3x fa-file app-file-chooser__file-icon"></i>
-                                        note.json
+                        recentlyOpenedFiles
+                            .filter(x => x.toLocaleLowerCase().includes(filer ? filer.toLocaleLowerCase() : ''))
+                            .map((fileName, i) => {
+                                return (
+                                    <div className='app-file-chooser__file' onClick={() => loadFile(fileName)}>
+                                        <i className="fa-solid fa-file app-file-chooser__file-icon"/>
+                                        {fileName}
                                     </div>
-                                </Link>
-                            );
-                        })
+                                );
+                            })
                     }
                 </div>
             </div>

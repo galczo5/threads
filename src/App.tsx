@@ -1,17 +1,19 @@
 import { RecoilRoot } from 'recoil';
 import {Note} from "./editor/Note";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Route, Routes, HashRouter} from "react-router-dom";
 import {FileChooser} from "./file-chooser/FileChooser";
+import {FileOperations} from "./file/FileOperations";
 
 function App() {
     return (
         <RecoilRoot>
-            <BrowserRouter>
+            <HashRouter>
+                <FileOperations/>
                 <Routes>
-                    <Route path={'/'} element={FileChooser()}></Route>
-                    <Route path={'/note/:id'} element={Note()}></Route>
+                    <Route path={'/'} element={FileChooser()}/>
+                    <Route path={'/note/:id'} element={Note()}/>
                 </Routes>
-            </BrowserRouter>
+            </HashRouter>
         </RecoilRoot>
     );
 }
