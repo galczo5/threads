@@ -31,4 +31,8 @@ export class Colors {
     getAccentColor(): string {
         return this.computedStyle.getPropertyValue('--accent');
     }
+
+    getLeafColor(): string {
+        return this.computedStyle.getPropertyValue('--leaf');
+    }
 }

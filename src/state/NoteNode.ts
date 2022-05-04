@@ -1,4 +1,4 @@
-export type GraphNoteNode = {id: number, label: string};
+export type GraphNoteNode = {id: number, label: string, color?: string, size?: number};
 
 export type NoteNodePlain = {
     id: number,

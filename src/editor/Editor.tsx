@@ -2,7 +2,7 @@ import ReactMarkdown from "react-markdown";
 import {useRecoilState} from "recoil";
 import {editorVisibilityAtom} from "../state/EditorVisibilityAtom";
 import {noteNodesAtom} from "../state/NoteNodesAtom";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {NoteNode} from "../state/NoteNode";
 import {selectedNodeAtom} from "../state/SelectedNodeAtom";
 import {edgesAtom} from "../state/EdgesAtom";
@@ -12,7 +12,6 @@ export function Editor() {
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [parent, setParent] = useState(0);
     const [editMode, setEditMode] = useState(false);
     const [addParentMode, setAddParentMode] = useState(false);
 
@@ -21,6 +20,8 @@ export function Editor() {
     const [edges, setEdges] = useRecoilState(edgesAtom);
     const [selectedNode] = useRecoilState(selectedNodeAtom);
 
+    const selectRef = useRef<HTMLSelectElement>(null);
+
     useEffect(
         () => {
             setTitle(selectedNode.title);
@@ -28,7 +29,6 @@ export function Editor() {
         },
         [selectedNode]
     );
-
 
     const addNote = () => {
         const newNodeId = selectedNode.id ? selectedNode.id : nodes.length + 1;
@@ -42,8 +42,11 @@ export function Editor() {
     };
 
     const addEdge = () => {
-        setEdges([...edges, new Edge(parent, selectedNode.id)]);
-        setAddParentMode(false);
+        const parent = selectRef.current?.value;
+        if (parent) {
+            setEdges([...edges, new Edge(Number(parent), selectedNode.id)]);
+            setAddParentMode(false);
+        }
     };
 
     const template = <div className='app-editor'>
@@ -81,8 +84,7 @@ export function Editor() {
                         }
                         {addParentMode &&
                             <>
-                                <select onChange={e => setParent(Number(e.target.value))}
-                                        style={{width: '100px'}}>
+                                <select ref={selectRef} style={{width: '100px'}}>
                                     {
                                         nodes.filter(n => n.id !== selectedNode.id).map(n =>
                                             <option key={n.id} value={n.id}>{n.title}</option>

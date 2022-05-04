@@ -1,15 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 :root {
-    --background: #0f172a; /* slate 600 */
+    --background: #1e293b;
     --foreground: #475569;
     --text: #e2e8f0;
 
-    --accent: #0ea5e9;
+    --accent: #0284c7;
     --accent-text: #e2e8f0;
 
     --danger: #b91c1c;
     --danger-text: #e5e7eb;
+
+    --leaf: #fde047;
 }
 
 * {
@@ -75,11 +77,7 @@ a {
     width: 350px;
 }
 
-input:focus {
-    background: var(--accent);
-    color: var(--accent-text);
-}
-
+input:focus,
 textarea:focus {
     background: var(--accent);
     color: var(--accent-text);
