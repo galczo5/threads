@@ -12,6 +12,8 @@ export function Editor() {
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [starred, setStarred] = useState(false);
+    const [done, setDone] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [addParentMode, setAddParentMode] = useState(false);
 
@@ -26,6 +28,8 @@ export function Editor() {
         () => {
             setTitle(selectedNode.title);
             setContent(selectedNode.content);
+            setDone(selectedNode.done);
+            setStarred(selectedNode.stared);
         },
         [selectedNode]
     );
@@ -36,7 +40,7 @@ export function Editor() {
 
         setNodes([
             ...nodes.filter(n => n.id !== newNodeId),
-            new NoteNode(newNodeId, title, content, [now])
+            new NoteNode(newNodeId, title, content, [now], starred, done)
         ]);
 
         setEditorVisible(false);
@@ -68,9 +72,20 @@ export function Editor() {
                 </button>
 
                 {selectedNode.id ?
-                    <button onClick={() => setEditMode(!editMode)}>
-                        <i className='fa-solid fa-edit'/>
-                    </button>
+                    <>
+                        <button onClick={() => setEditMode(!editMode)}>
+                            <i className='fa-solid fa-edit'/>
+                        </button>
+                        <button onClick={() => setStarred(!starred)}
+                                className={starred ? 'active' : ''}>
+                            <i className="fa-solid fa-star"/>
+                        </button>
+
+                        <button onClick={() => setDone(!done)}
+                                className={done ? 'active' : ''}>
+                            <i className="fa-solid fa-check-double"/>
+                        </button>
+                    </>
                     : <></>
                 }
 
@@ -107,8 +122,9 @@ export function Editor() {
                 </button>
             </div>
 
-            { selectedNode.id ?
-                <button onClick={() => removeNode()} className='danger'>
+            {selectedNode.id ?
+                <button onClick={() => removeNode()}
+                        className='danger'>
                     <i className="fa-solid fa-trash"/>
                 </button>
                 : <></>

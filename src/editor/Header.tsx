@@ -23,7 +23,7 @@ export function Header() {
     const openEditor = () => {
         const now = new Date().toISOString();
 
-        setSelectedNode(new NoteNode(0, '', '', [now]));
+        setSelectedNode(new NoteNode(0, '', '', [now], false, false));
         setCalendarVisibility(true);
     };
 
@@ -57,9 +57,7 @@ export function Header() {
                 </button>
             </div>
             <div className='app-header__notes-name'>
-                <strong>
-                    {filePath}
-                </strong>
+                {filePath}
             </div>
         </div>
     );

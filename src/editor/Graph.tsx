@@ -3,14 +3,13 @@ import * as vis from "vis";
 import {useRecoilState} from "recoil";
 import {editorVisibilityAtom} from "../state/EditorVisibilityAtom";
 import {noteNodesAtom} from "../state/NoteNodesAtom";
-import {GraphNoteNode, NoteNode} from "../state/NoteNode";
+import {GraphNodeSize, GraphNoteNode, NoteNode} from "../state/NoteNode";
 import {selectedNodeAtom} from "../state/SelectedNodeAtom";
 import {edgesAtom} from "../state/EdgesAtom";
 import {GraphEdge} from "../state/Edge";
 import {Colors} from "../Colors";
 import {filterAtom} from "../state/FilterAtom";
 import {DataSet, Network, Options} from "vis";
-import {node} from "prop-types";
 
 export function Graph() {
 
@@ -29,7 +28,7 @@ export function Graph() {
             borderWidth: 0,
             font: {color: colors.getTextColor()},
             color: colors.getAccentColor(),
-            size: 10,
+            size: GraphNodeSize.NORMAL,
         },
         edges: {
             arrows: {
@@ -98,19 +97,27 @@ function setNodeProperties(network: Network, node: NoteNode, filter: string, nod
     const ancestors = network.getConnectedNodes(node.id, 'to');
 
     if (!filter) {
-        if (predecessors.length === 0) {
-            nodesDataSet.update({
-                ...node.getGraph(),
-                color: colors.getForegroundColor(),
-                size: 10
-            });
-        } else if (ancestors.length === 0) {
-            nodesDataSet.update({
-                ...node.getGraph(),
-                color: colors.getLeafColor(),
-                size: 15
-            });
+        const hasNoPredecessors = predecessors.length === 0;
+        const hasNoAncestors = ancestors.length === 0;
+        const isDone = node.done;
+        const isStarred = node.stared;
+
+        let size = GraphNodeSize.NORMAL;
+        let color = colors.getAccentColor();
+
+        if (isStarred || (hasNoAncestors && !hasNoPredecessors && !isDone)) {
+            size = GraphNodeSize.BIG;
+            color = colors.getLeafColor();
+        } else if (isDone || hasNoPredecessors) {
+            size = GraphNodeSize.NORMAL;
+            color = colors.getForegroundColor();
         }
+
+        nodesDataSet.update({
+            ...node.getGraph(),
+            color: color,
+            size: size
+        });
     } else {
         const loweredFilter = filter.toLocaleLowerCase();
         const titleFitsFilter = node.title.toLocaleLowerCase().includes(loweredFilter);
@@ -119,13 +126,13 @@ function setNodeProperties(network: Network, node: NoteNode, filter: string, nod
             nodesDataSet.update({
                 ...node.getGraph(),
                 color: colors.getLeafColor(),
-                size: 15
+                size: GraphNodeSize.BIG
             });
         } else {
             nodesDataSet.update({
                 ...node.getGraph(),
                 color: colors.getForegroundColor(),
-                size: 10
+                size: GraphNodeSize.NORMAL
             });
         }
     }
