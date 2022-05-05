@@ -30,9 +30,10 @@ export function Editor() {
         [selectedNode]
     );
 
-    const addNote = () => {
-        const newNodeId = selectedNode.id ? selectedNode.id : nodes.length + 1;
+    const saveNote = () => {
+        const newNodeId = selectedNode.id ? selectedNode.id : new Date().getTime();
         const now = new Date().toISOString();
+
         setNodes([
             ...nodes.filter(n => n.id !== newNodeId),
             new NoteNode(newNodeId, title, content, [now])
@@ -64,12 +65,6 @@ export function Editor() {
             <div className='app-editor__buttons-left'>
                 <button onClick={() => setEditorVisible(false)}>
                     <i className="fa-solid fa-arrow-right"/>
-                </button>
-
-                <button className='active'
-                        onClick={() => addNote()}>
-                    <i className='fa-solid fa-save'/>
-                    <span>save</span>
                 </button>
 
                 {selectedNode.id ?
@@ -104,6 +99,12 @@ export function Editor() {
                     </>
                     : <></>
                 }
+
+                <button className='active'
+                        onClick={() => saveNote()}>
+                    <i className='fa-solid fa-save'/>
+                    <span>save</span>
+                </button>
             </div>
 
             { selectedNode.id ?

@@ -7,12 +7,14 @@ import {useRef} from "react";
 import {Link} from "react-router-dom";
 import {filePathAtom} from "../state/FilePathAtom";
 import {filterAtom} from "../state/FilterAtom";
+import {logVisibilityAtom} from "../state/LogVisibilityAtom";
 
 export function Header() {
 
     const [calendarVisible, setCalendarVisible] = useRecoilState(calendarVisibilityAtom);
     const [selectedNode, setSelectedNode] = useRecoilState(selectedNodeAtom);
     const [calendarVisibility, setCalendarVisibility] = useRecoilState(editorVisibilityAtom);
+    const [logVisible, setLogVisible] = useRecoilState(logVisibilityAtom);
     const [filter, setFilter] = useRecoilState(filterAtom);
     const [filePath] = useRecoilState(filePathAtom);
 
@@ -49,9 +51,10 @@ export function Header() {
                         className={calendarVisible ? 'active' : ''}>
                     <i className="fa-solid fa-calendar-check"/>
                 </button>
-                {/*<button>*/}
-                {/*    <i className="fa-solid fa-list-check"/>*/}
-                {/*</button>*/}
+                <button onClick={() => setLogVisible(!logVisible)}
+                        className={logVisible ? 'active' : ''}>
+                    <i className="fa-solid fa-list-check"/>
+                </button>
             </div>
             <div className='app-header__notes-name'>
                 <strong>

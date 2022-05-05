@@ -10,6 +10,7 @@ import {GraphEdge} from "../state/Edge";
 import {Colors} from "../Colors";
 import {filterAtom} from "../state/FilterAtom";
 import {DataSet, Network, Options} from "vis";
+import {node} from "prop-types";
 
 export function Graph() {
 

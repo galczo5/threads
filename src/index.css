@@ -166,7 +166,7 @@ input:hover {
     display: flex;
     gap: 10px;
     flex-direction: column;
-    width: 70vw;
+    width: 50vw;
     height: 100vh;
 
     background: var(--background);
@@ -200,6 +200,38 @@ input:hover {
 .app-editor__note-content {
     padding: 10px;
     resize: vertical;
+}
+
+.app-editor__log {
+    position: fixed;
+    background: var(--background);
+    box-shadow: 0 0 50px 20px rgba(0, 0, 0, .1);
+    top: 0;
+    left: 0;
+    width: 50vw;
+    height: 100vh;
+    padding: 10px;
+    z-index: 2000;
+    overflow: auto;
+}
+
+.app-editor__log-row {
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--foreground);
+}
+
+.app-editor__log-content {
+    color: var(--foreground);
+}
+
+.app-editor__log-buttons {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
 }
 
 .separator-margin {
