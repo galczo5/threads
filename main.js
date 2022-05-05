@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, dialog, session} = require('electron');
+const {app, BrowserWindow, ipcMain, dialog, nativeTheme} = require('electron');
 const path = require("path");
 const fs = require("fs");
 
@@ -13,6 +13,8 @@ const createWindow = () => {
             preload: path.join(__dirname, './preload.js')
         }
     });
+
+    nativeTheme.themeSource = "dark";
 
     browserWindow.loadFile('./dist/index.html');
 
