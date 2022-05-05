@@ -63,6 +63,15 @@ export function Graph() {
                 });
             }
 
+            const nodesToRemove: Array<number> = [];
+            nodesDataSet.forEach(item => {
+                if (!nodes.some(n => n.id === item.id)) {
+                    nodesToRemove.push(item.id);
+                }
+            });
+
+            nodesToRemove.forEach(id => nodesDataSet.remove(id));
+
             for (const node of nodes) {
                 nodesDataSet.update(node.getGraph());
             }

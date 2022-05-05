@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 :root {
-    --background: #1e293b;
-    --foreground: #475569;
-    --text: #e2e8f0;
+    --background: #262626;
+    --foreground: #737373;
+    --text: #d4d4d4;
 
-    --accent: #0284c7;
-    --accent-text: #e2e8f0;
+    --accent: #a3a3a3;
+    --accent-text: #d4d4d4;
 
     --danger: #b91c1c;
     --danger-text: #e5e7eb;
@@ -166,7 +166,7 @@ input:hover {
     display: flex;
     gap: 10px;
     flex-direction: column;
-    width: 50vw;
+    width: 70vw;
     height: 100vh;
 
     background: var(--background);
@@ -186,14 +186,10 @@ input:hover {
     gap: 5px;
 }
 
-.app-editor__close-button {
-    position: absolute;
-    left: -50px;
-    top: -45px;
+.app-editor__close-button button {
+    border-radius: 50%;
     width: 30px;
     height: 30px;
-    background: var(--accent);
-    border-radius: 50%;
 }
 
 .app-editor__note-title {

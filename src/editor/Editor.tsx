@@ -49,6 +49,12 @@ export function Editor() {
         }
     };
 
+    const removeNode = () => {
+        setNodes([...nodes.filter(n => n.id !== selectedNode.id)]);
+        setEdges([...edges.filter(e => e.from !== selectedNode.id && e.to !== selectedNode.id)]);
+        setEditorVisible(false);
+    };
+
     const template = <div className='app-editor'>
         <input className='app-editor__note-title'
                type="text"
@@ -56,8 +62,7 @@ export function Editor() {
                onChange={e => setTitle(e.target.value)}/>
         <div className='app-editor__buttons'>
             <div className='app-editor__buttons-left'>
-                <button onClick={() => setEditorVisible(false)}
-                        className='app-editor__close-button'>
+                <button onClick={() => setEditorVisible(false)}>
                     <i className="fa-solid fa-arrow-right"/>
                 </button>
 
@@ -102,7 +107,7 @@ export function Editor() {
             </div>
 
             { selectedNode.id ?
-                <button className='danger'>
+                <button onClick={() => removeNode()} className='danger'>
                     <i className="fa-solid fa-trash"/>
                 </button>
                 : <></>
