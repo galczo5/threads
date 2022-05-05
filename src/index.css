@@ -35,6 +35,10 @@ a {
 }
 
 ::placeholder {
+    color: var(--background);
+}
+
+input:focus::placeholder {
     color: var(--text);
 }
 
@@ -52,11 +56,13 @@ a {
     font-size: 22px;
 }
 
-.app-header__logo {
+.app-logo {
     position: fixed;
-    top: 10px;
+    bottom: 10px;
     right: 10px;
     opacity: .2;
+    user-select: none;
+    pointer-events: none;
 }
 
 .app-header__notes-name {
@@ -173,7 +179,7 @@ input:hover {
     height: 100vh;
 
     background: var(--background);
-    box-shadow: 0 0 50px 20px rgba(0, 0, 0, .1);
+    box-shadow: 0 0 50px 20px rgba(0, 0, 0, .3);
     z-index: 2000;
     padding: 10px;
 }
@@ -208,7 +214,7 @@ input:hover {
 .app-editor__log {
     position: fixed;
     background: var(--background);
-    box-shadow: 0 0 50px 20px rgba(0, 0, 0, .1);
+    box-shadow: 0 0 50px 20px rgba(0, 0, 0, .3);
     top: 0;
     left: 0;
     width: 50vw;
@@ -221,7 +227,7 @@ input:hover {
 .app-editor__log-row {
     margin-bottom: 25px;
     padding-bottom: 10px;
-    border-bottom: 1px dashed var(--foreground);
+    border-bottom: 1px solid var(--foreground);
 }
 
 .app-editor__log-content {

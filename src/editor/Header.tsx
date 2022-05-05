@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import {filePathAtom} from "../state/FilePathAtom";
 import {filterAtom} from "../state/FilterAtom";
 import {logVisibilityAtom} from "../state/LogVisibilityAtom";
+import {Logo} from "../logo/Logo";
 
 export function Header() {
 
